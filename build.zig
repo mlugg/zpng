@@ -5,11 +5,11 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const zpng = b.addModule("zpng", .{
-        .root_source_file = .{ .path = "src/zpng.zig" },
+        .root_source_file = b.path("src/zpng.zig"),
     });
 
     const tests = b.addTest(.{
-        .root_source_file = .{ .path = "test/test.zig" },
+        .root_source_file = b.path("test/test.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -28,7 +28,7 @@ fn fuzzing(
 ) void {
     const lib = b.addStaticLibrary(.{
         .name = "zpng_fuzz",
-        .root_source_file = .{ .path = "fuzz/fuzz.zig" },
+        .root_source_file = b.path("fuzz/fuzz.zig"),
         .target = target,
         .optimize = optimize,
     });
